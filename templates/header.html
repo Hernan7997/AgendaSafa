@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AgendaSafa</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+
+{% block header %}
+<nav class="navbar bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'imagenes/logo-agenda.png' %}" alt="Logo" width="50" height="50" class="d-inline-block align-text-center">
+      Agenda Safa
+    </a>
+      
+  </div>
+</nav>
+{% endblock header %}
+
+</body>
+</html>
