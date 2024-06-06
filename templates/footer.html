@@ -1,28 +1,47 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/btn-color.css' %}">
+    <style>
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #db6930;
+            text-align: center;
+            height: 130px;
+        }
 
-<footer class="text-center text-lg-start" style="background-color: #db6930;">
+    </style>
+</head>
+<footer class="footer text-center text-lg-start " style="background-color: #db6930;">
 
-    <div class="container d-flex justify-content-center py-5">
-        <button type="button" class="btn btn-primary btn-lg btn-floating mx-2"
-                style="background-color: #54456b;">
-            <i class="fab fa-facebook-f"></i>
-        </button>
-        <button type="button" class="btn btn-primary btn-lg btn-floating mx-2"
-                style="background-color: #54456b;">
-            <i class="fab fa-youtube"></i>
-        </button>
-        <button type="button" class="btn btn-primary btn-lg btn-floating mx-2"
-                style="background-color: #54456b;">
-            <i class="fab fa-instagram"></i>
-        </button>
-        <button type="button" class="btn btn-primary btn-lg btn-floating mx-2"
-                style="background-color: #54456b;">
-            <i class="fab fa-twitter"></i>
-        </button>
+    <div class="container d-flex justify-content-center py-3">
+        <a href="https://www.facebook.com/">
+            <button type="button" class="boton btn btn-primary btn-lg btn-floating mx-2">
+                <i class="bi bi-facebook"></i>
+            </button>
+        </a>
+        <a href="https://www.tiktok.com/">
+            <button type="button" class="boton btn btn-primary btn-lg btn-floating mx-2">
+                <i class="bi bi-tiktok"></i>
+            </button>
+        </a>
+        <a href="https://www.instagram.com/">
+            <button type="button" class="boton btn btn-primary btn-lg btn-floating mx-2">
+                <i class="bi bi-instagram"></i>
+            </button>
+        </a>
+
+        <a href="https://x.com/">
+            <button type="button" class="boton btn btn-primary btn-lg btn-floating mx-2">
+                <i class="bi bi-twitter"></i>
+            </button>
+        </a>
     </div>
 
     <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
         2024 AgendaSafa:
-        <a class="text-white" href="#">MDBootstrap.com</a>
+        <a class="text-white" href="https://mail.google.com/">supportAgendaSafa@gmail.com</a>
     </div>
 
 </footer>

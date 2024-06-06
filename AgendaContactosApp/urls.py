@@ -20,9 +20,17 @@ from .views import *
 
 urlpatterns = [
     path('inicio/', inicio, name='inicio'),
-    path('usuario/', usuario, name='usuario'),
+    path('perfil/', perfil, name='perfil'),
     path('sobre_nosotros/', sobre_nosotros, name='sobre_nosotros'),
-    path('contactos/', contactos, name='contactos'),
+    path('contactos/', lista_contactos, name='contactos'),
+    path('contactos/new/', nuevo_contacto, name='nuevo_contacto'),
+    path('contactos/edit/<int:id>/', editar_contacto, name='editar_contacto'),
+    path('contactos/borrar/<int:id>/', borrar_contacto, name='borrar_contacto'),
+    path('login/', loguear, name='login'),
+    path('logout/', desloguear, name='logout'),
+    path('registro/', registro, name='registro'),
+    path('admin_usuarios/', lista_usuarios, name='lista_usuarios')
+
 
 
 ]

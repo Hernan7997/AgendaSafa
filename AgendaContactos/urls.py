@@ -21,7 +21,7 @@ from AgendaContactosApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path ('AgendaContactos/', include('AgendaContactosApp.urls')),
+    path('AgendaContactos/', include('AgendaContactosApp.urls')),
     path('', inicio, name='inicio'),
 
 ]

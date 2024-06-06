@@ -1,10 +1,35 @@
 {% include 'header.html' %}
 {% load static %}
-
+<head>
+    <style>
+        .table td, th {
+            min-width: 100px;
+        }
+    </style>
+</head>
 
 {% block content %}
-    <!-- Hacer alerts de JS con sweetalert2-->
+<a href="{% url 'nuevo_contacto' %}" class="card-link">Nuevo contacto</a>
 
-{% endblock content %}
+    {% for c in lista_contactos %}
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ c.nombre }} {{ c.apellidos }}</h5>
+                <p class="card-text">{{ c.nota }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{ c.telefono }}</li>
+                <li class="list-group-item">{{ c.email }}</li>
+            </ul>
+            <div class="card-body">
+                <a href="{% url 'editar_contacto' id=c.id %}" class="card-link">Editar</a>
+                <a href="{% url 'borrar_contacto' id=c.id %}" class="card-link">Eliminar</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
 
 {% include 'footer.html' %}
