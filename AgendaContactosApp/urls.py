@@ -29,8 +29,12 @@ urlpatterns = [
     path('login/', loguear, name='login'),
     path('logout/', desloguear, name='logout'),
     path('registro/', registro, name='registro'),
-    path('admin_usuarios/', lista_usuarios, name='lista_usuarios')
-
+    path('admin_usuarios/', lista_usuarios, name='lista_usuarios'),
+    path('admin_nuevo_usuario/', nuevo_usuario, name='nuevo_usuario'),
+    path('admin_editar_usuario/<int:id>/', editar_usuario, name='editar_usuario'),
+    path('admin_borrar_usuario/<int:id>/', borrar_usuario, name='borrar_usuario'),
+    path('admin_buscar_usuario/', buscar_usuario, name='buscar_usuario'),
+    path('error/', error, name='error'),
 
 
 ]

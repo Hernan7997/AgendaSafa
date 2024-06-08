@@ -3,9 +3,44 @@
 
 
 {% block content %}
-    <p>etiqueta de prueba pagina inicio</p>
-{#    <img src="{% static 'imagenes/fondo-imagen-agenda.png' %}">#}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xxl-6 p-2">
+                <div class="card border-light mb-3">
+                    <h1>AgendaSafa</h1>
+                    <br>
+                    <h3>Tu web de confianza para almacenar tus contactos</h3>
+                    <br>
+                    <p>En la era digital, mantener tus contactos organizados y accesibles es más importante que nunca.
+                        Nuestra web de almacenamiento de contactos te ofrece una solución sencilla y eficaz para
+                        gestionar
+                        tu lista de contactos de manera segura y eficiente. Para más información contacte con nosotros o
+                        informese mas en el siguiente enlace</p>
+                    <a href="{% url 'sobre_nosotros' %}">
+                        <button class="boton btn btn-primary m-3">Leer mas</button>
+                    </a>
+                </div>
+                <div class="card border-light mb-3">
+                    <h3>¡Registrarse es gratis!</h3>
+                    <br>
+                    <p>
+                        Registrarse es fácil y rápido. Únete a nuestra comunidad y descubre la comodidad de tener todos
+                        tus
+                        contactos
+                        organizados en un solo lugar.
+                    </p>
+                    <a href="{% url 'registro' %}">
+                        <button class="boton btn btn-primary">¡Regístrate ya!</button>
+                    </a>
+                </div>
 
+
+            </div>
+            <div class="col-12 col-xxl-6 p-2">
+                <img src="{% static 'imagenes/fondo-imagen-agenda.png' %}" class="imagen img-fluid w-100">
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% include 'footer.html' %}

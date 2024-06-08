@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 {% load static %}
+{% load bootstrap5 %}
 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    {#    Etiqueta para responsive para dispositivos moviles#}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {#    Etiqueta de los iconos de bootstrap#}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/btn-color.css' %}">
-    <title>AgendaSafa</title>
-    {% load bootstrap5 %}
+    {#    Etiqueta de archivos css#}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colores.css' %}">
+    {#    Script para cargar desde el CDN archivos de js #}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
+
+    <title>AgendaSafa</title>
     <style>
 
         body {
@@ -19,56 +26,108 @@
         }
 
         .navbar {
+            background-color: #F0E0A3;
             margin-bottom: 2%;
-        }
-
-        /* Estilos para pantallas de tamaño medio (tabletas, etc.) */
-        @media (max-width: 768px) {
-
-        }
-
-        /* Estilos para pantallas pequeñas (teléfonos móviles, etc.) */
-        @media (max-width: 576px) {
+            display: flex;
+            border-bottom: solid 2px;
+            border-top-color: #54456b;
 
         }
+
+        #navbarNav {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .card {
+            box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3), -5px -5px 8px rgba(0, 0, 0, 0.3);
+            padding: 1em;
+        }
+
+        .boton {
+            margin: 1em;
+        }
+
+        .imagen {
+            box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3), -8px -8px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .thead {
+            background-color: #54456b;
+            color: white;
+        }
+
+        @media (max-width: 991px) {
+            #navbarNav {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 991px) {
+            #navbarNav {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            #opciones {
+                margin-right: 8em;
+            }
+        }
+
     </style>
 </head>
 <body>
+{% bootstrap_javascript %}
 
 {% block header %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand fs-3 fs-md-2" href="{% url 'inicio' %}">
+            {#             Enlace al clickar en el logo#}
+            <a class="navbar-brand text-black" href="{% url 'inicio' %}">
                 <img src="{% static 'imagenes/logo-agenda.png' %}" alt="Logo" width="50" height="50"
                      class="d-inline-block align-text-center">
                 Agenda Safa
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+
+            {#             Boton para el responsive#}
+            <button class="boton-oculto navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            {#             Enlaces de la barra de navegacion#}
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                        {% if user.rol == 'PERSONA' %}
-                            <a class="navbar-brand" href="{% url 'contactos' %}">
-                                Contactos
-                            </a>
-                        {% elif user.rol == 'ADMIN' %}
-                            <a class="navbar-brand" href="{% url 'lista_usuarios' %}">
-                                Usuarios
-                            </a>
-                        {% endif %}
-                        <div class="nav-item">
-                            {% if not user.rol == 'ADMIN' %}
-                                <a class="nav-link text-white" href="{% url 'perfil' %}">Mi perfil</a>
+
+                        {#                     Container de contactos y usuario#}
+                        <li class="nav-item" id="opciones">
+                            {% if user.rol == 'PERSONA' %}
+                                <a class="nav-link text-black" href="{% url 'contactos' %}">
+                                    Contactos
+                                </a>
+                            {% elif user.rol == 'ADMIN' %}
+                                <a class="nav-link text-black" href="{% url 'lista_usuarios' %}">
+                                    Usuarios
+                                </a>
                             {% endif %}
-                            <a class="nav-link text-white" href="{% url 'logout' %}">Log out</a>
-                        </div>
-                    {% else %}
-                        <div class="nav-item">
-                            <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
-                        </div>
+                        </li>
+
+                        {#                     Containers de perfil y login#}
+                        <li class="nav-item">
+                            {% if not user.rol == 'ADMIN' %}
+                                <a class="nav-link text-black" href="{% url 'perfil' %}">Mi perfil</a>
+                            {% endif %}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black" href="{% url 'logout' %}">Log out</a>
+                            {% else %}
+                            <a class="nav-link text-black" href="{% url 'login' %}">Login</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>

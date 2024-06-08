@@ -4,6 +4,62 @@
 
 {% block content %}
     <!-- Hacer alerts de JS con sweetalert2-->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xxl-6 p-2">
+                <div class="card border-light">
+                    <h3>¡Bienvenido a nuestra web de Almacenamiento de Contactos! </h3>
+                    <p>Como hemos dicho anteriormente, mantener tus contactos organizados y accesibles es más importante
+                        que
+                        nunca
+                        asique vamos a darte razones por las que deberias usar nuestra web para almacenar tus
+                        contactos. </p>
+                    <h2>Características Principales</h2>
+                    <ul class="feature-list">
+                        <li>Fácil de usar: Nuestra interfaz intuitiva te permite añadir, editar y eliminar contactos con
+                            facilidad.
+                        </li>
+                        <li>Accesibilidad: Accede a tus contactos desde cualquier dispositivo con conexión a Internet.
+                        </li>
+                        <li>Seguridad: Protegemos tu información con medidas de seguridad avanzadas para garantizar que
+                            tus
+                            datos
+                            estén siempre seguros.
+                        </li>
+                        <li>Organización: Categoriza tus contactos y añade notas para tener toda la información
+                            relevante a
+                            mano.
+                        </li>
+                        <li>Sincronización: Sincroniza tus contactos con otras aplicaciones y dispositivos para mantener
+                            todo
+                            actualizado.
+                        </li>
+                    </ul>
+
+                    <h2>¿Por qué Elegirnos?</h2>
+                    <p>Nuestra plataforma está diseñada pensando en ti. Ofrecemos una experiencia de usuario excepcional
+                        y
+                        nos
+                        comprometemos a mejorar continuamente nuestros servicios para satisfacer tus necesidades. Con
+                        nuestra web,
+                        nunca más tendrás que preocuparte por perder un contacto importante.</p>
+
+                    <h2>Empieza Hoy Mismo</h2>
+                    <p>Registrarse es fácil y rápido. Únete a nuestra comunidad y descubre la comodidad de tener todos
+                        tus
+                        contactos
+                        organizados en un solo lugar.
+                    </p>
+                    <a href="{% url 'inicio' %}">
+                        <button class="boton btn btn-primary">¡Regístrate ya!</button>
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-xxl-6 p-2">
+                <img src="{% static 'imagenes/fondo-about-us.png' %}" class="imagen img-fluid w-100 h-100">
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 

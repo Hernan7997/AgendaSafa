@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 
+from .decorator import check_user_logged, check_user_role
 from .models import *
 
 
@@ -10,19 +12,25 @@ from .models import *
 def inicio(request):
     return render(request, 'inicio.html')
 
+
 def perfil(request):
     return render(request, 'perfil.html')
+
 
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
 
+
+@check_user_logged()
 def lista_contactos(request):
     listacontactos = Contactos.objects.filter(user=request.user)
     return render(request, 'contactos.html', {'lista_contactos': listacontactos})
 
-#Los GET son para crear un formulario vacio
-#los POST son para enviar los datos de la base de datos
 
+# Los GET son para crear un formulario vacio
+# los POST son para enviar los datos de la base de datos
+
+@check_user_logged()
 def nuevo_contacto(request):
     # Si el metodo es GET, se muestra el formulario vacio
     if request.method == 'GET':
@@ -35,14 +43,16 @@ def nuevo_contacto(request):
         nuevo.telefono = request.POST.get('telefono')
         nuevo.email = request.POST.get('email')
         nuevo.nota = request.POST.get('nota')
+        nuevo.user = request.user
         nuevo.save()
         return redirect('/AgendaContactos/contactos')
 
 
 def borrar_contacto(request, id):
-    contacto = Contactos.objects.get(id= id)
+    contacto = Contactos.objects.get(id=id)
     contacto.delete()
     return redirect('/AgendaContactos/contactos')
+
 
 # Igual que crear un contacto solo que con la diferencia que solicitas el id del contacto a editar
 def editar_contacto(request, id):
@@ -57,6 +67,7 @@ def editar_contacto(request, id):
         contacto.nota = request.POST.get('nota')
         contacto.save()
         return redirect('/AgendaContactos/contactos')
+
 
 def registro(request):
     if request.method == 'GET':
@@ -84,9 +95,8 @@ def registro(request):
         if existe_email:
             errors.append("Ya existe un usuario con ese mismo email")
 
-
         if len(errors) != 0:
-            return render(request, 'registro.html', {"errores":errors, "username": username, "email": email})
+            return render(request, 'registro.html', {"errores": errors, "username": username, "email": email})
         else:
             # Crear usuario
             usuario = User.objects.create(username=username, password=make_password(password), email=email)
@@ -94,6 +104,7 @@ def registro(request):
 
             # Redirigir al logging
             return redirect('/AgendaContactos/login')
+
 
 def loguear(request):
     if request.method == 'POST':
@@ -115,13 +126,110 @@ def loguear(request):
             return render(request, 'login.html', {"error": "No se ha podido iniciar sesión"})
 
     # Mostrar formulario de login para metodo GET
-    return render(request,  'login.html')
+    return render(request, 'login.html')
+
 
 def desloguear(request):
     logout(request)
     return redirect('/AgendaContactos/login')
 
-# @check_user_role('ADMIN')
+
+@check_user_role('ADMIN')
 def lista_usuarios(request):
     listausuarios = User.objects.all()
     return render(request, 'admin_usuarios.html', {'lista_usuarios': listausuarios})
+
+
+@check_user_role('ADMIN')
+def nuevo_usuario(request):
+    # aqui estoy cogiendo los roles para mostrarlos pero
+    # solo estoy cogiendo el campo 2 de la tupla, es decir, la descripcion
+    roles = [choice[0] for choice in Rol.choices]
+    errores = []
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        rol = request.POST.get('rol')
+
+        if not username:
+            errores.append('El nombre de usuario es obligatorio')
+        if not email:
+            errores.append('El email es obligatorio')
+        if not rol or rol == 'predeterminado':
+            errores.append('El rol es obligatorio, por favor seleccione uno')
+
+        # Verificar si el nombre de usuario o el correo electrónico ya están en uso
+        if User.objects.filter(username=username).exists():
+            errores.append('El nombre de usuario ya está en uso')
+        if User.objects.filter(email=email).exists():
+            errores.append('El correo electrónico ya está en uso')
+
+        if not errores:
+            # Crear y guardar el nuevo usuario si no hay errores
+            nuevo_usuario = User(username=username, email=email, rol=rol)
+            nuevo_usuario.save()
+
+    return render(request, 'admin_nuevo_usuario.html', {'roles': roles, 'errores': errores})
+
+
+@check_user_role('ADMIN')
+def editar_usuario(request, id):
+    usuario = User.objects.get(id=id)
+    roles = [choice[0] for choice in Rol.choices]
+    errores = []
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        rol = request.POST.get('rol')
+
+        if not username:
+            errores.append('El nombre de usuario es obligatorio')
+        if not email:
+            errores.append('El email es obligatorio')
+        if not rol or rol == 'predeterminado':
+            errores.append('El rol es obligatorio, por favor seleccione uno')
+
+        # Verificar si el correo electrónico ya está en uso
+        if User.objects.filter(email=email).exclude(id=usuario.id).exists():
+            errores.append('El correo electrónico ya está en uso')
+
+        if not errores:
+            usuario.username = username
+            usuario.email = email
+            usuario.rol = rol
+
+            # Guardar el usuario si no hay errores
+            try:
+                usuario.save()
+            except ValidationError as e:
+                errores.append(str(e))
+            else:
+                return redirect('/AgendaContactos/admin_usuarios')
+
+    return render(request, 'admin_nuevo_usuario.html', {'usuario': usuario, 'roles': roles, 'errores': errores})
+
+
+@check_user_role('ADMIN')
+def borrar_usuario(request, id):
+    usuario = User.objects.get(id=id)
+    usuario.delete()
+    return redirect('/AgendaContactos/admin_usuarios')
+
+
+@check_user_role('ADMIN')
+def buscar_usuario(request):
+    # Obtenemos el nombre de usuario del request
+    username = request.GET.get('username')
+    if username:
+        # Buscar usuarios que coincidan
+        usuarios = User.objects.filter(username__icontains=username)
+    else:
+        # Si no se proporciona un nombre de usuario, obtener todos los usuarios
+        usuarios = User.objects.all()
+
+    return render(request, 'admin_usuarios.html', {'lista_usuarios': usuarios})
+
+
+def error(request):
+    return render(request, 'error.html')

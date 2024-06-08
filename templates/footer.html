@@ -1,21 +1,23 @@
 {% load static %}
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/btn-color.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/colores.css' %}">
     <style>
         .footer {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background-color: #db6930;
             text-align: center;
-            height: 130px;
+            height: auto;
+            border-top: solid 2px;
+            border-top-color: #54456b;
+            background-color: #F0E0A3;
         }
 
     </style>
 </head>
-<footer class="footer text-center text-lg-start " style="background-color: #db6930;">
+<footer class="footer text-center text-lg-start">
 
-    <div class="container d-flex justify-content-center py-3">
+    <div class="container d-flex justify-content-center">
         <a href="https://www.facebook.com/">
             <button type="button" class="boton btn btn-primary btn-lg btn-floating mx-2">
                 <i class="bi bi-facebook"></i>
@@ -39,9 +41,9 @@
         </a>
     </div>
 
-    <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2);">
         2024 AgendaSafa:
-        <a class="text-white" href="https://mail.google.com/">supportAgendaSafa@gmail.com</a>
+        <a class="text-dark" href="https://mail.google.com/">supportAgendaSafa@gmail.com</a>
     </div>
 
 </footer>
