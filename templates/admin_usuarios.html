@@ -37,11 +37,15 @@
                         <td>{{ u.rol }}</td>
                         <td>{{ u.email }}</td>
                         <td>
-                            <a href="{% url 'editar_usuario' id=u.id %}" class="btn"><i
-                                    class="bi bi-pencil-square "></i></a>
+                            <a href="{% url 'editar_usuario' id=u.id %}" class="btn">
+                                <i class="bi bi-pencil-square "></i></a>
                         </td>
                         <td>
-                            <a href="{% url 'borrar_usuario' id=u.id %}" class="btn"><i class="bi bi-trash-fill "</a>
+                            {# javascript:void(0) permite que el boton no haga nada, a diferencia de # que recarga la pagina #}
+                            {# data-url nos permite cargar la url al archivo js ya que {% solo funciona en plantillas html %}#}
+                            <a href="javascript:void(0)" class="btn eliminar-usuario" data-url="{% url 'borrar_usuario' id=u.id %}">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
