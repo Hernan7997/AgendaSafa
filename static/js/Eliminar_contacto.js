@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // Capturar el clic en los enlaces de eliminación de contacto
-    let eliminarContactoLinks = document.querySelectorAll(".eliminar-contacto");
+    let eliminarContactoLinks = document.querySelectorAll(".eliminar");
     eliminarContactoLinks.forEach(function(link) {
 
         // Agregar un evento de clic a cada enlace

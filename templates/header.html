@@ -2,7 +2,7 @@
 {% load static %}
 {% load bootstrap5 %}
 
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     {#    Etiqueta para responsive para dispositivos moviles#}
@@ -139,6 +139,8 @@
     {#    Script que carga los elementos de la carpeta js static#}
     <script src="{% static 'js/Eliminar_usuario.js' %}"></script>
     <script src="{% static 'js/Eliminar_contacto.js' %}"></script>
+    <script src="{% static 'js/Confirmar.js' %}"></script>
+    <script src="{% static 'js/Login_error.js' %}"></script>
 {% endblock %}
 
 </body>

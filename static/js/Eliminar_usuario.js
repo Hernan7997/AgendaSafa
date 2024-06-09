@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (result.isConfirmed) {
                     // Si se confirma la eliminación, redirige al usuario a la URL de eliminación
                     window.location.href = eliminarUsuarioUrl;
+                    console.log("Usuario eliminado");
                 }
             });
         });
