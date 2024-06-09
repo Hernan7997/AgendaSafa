@@ -1,5 +1,8 @@
+from datetime import date
+
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
+
 
 # Create your models here.
 
@@ -7,6 +10,7 @@ from django.db import models
 class Rol(models.TextChoices):
     ADMIN = 'ADMIN', 'Administrador'
     PERSONA = 'PERSONA', 'Persona'
+
 
 # clase gestor de usuarios
 class UserManager(BaseUserManager):
@@ -28,7 +32,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
-    rol = models.CharField(max_length=25, choices= Rol.choices, default=Rol.PERSONA)
+    rol = models.CharField(max_length=25, choices=Rol.choices, default=Rol.PERSONA)
     # estos campos son predeterminados de django que pisamos para configurarlos a nuestro gusto
     # is_active es para habilitar al usuario diciendo que esta activo
     is_active = models.BooleanField(default=True)
@@ -41,19 +45,29 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
-
-
     def __str__(self):
         return self.username
 
+    # Metodo para guardar el usuario
+    def save(self, *args, **kwargs):
+        # Si el usuario es nuevo, se crea una nueva persona asociada a él
+        if not self.pk:
+            super(User, self).save(*args, **kwargs)
+            Persona.objects.create(user=self)
+        # Si el usuario ya existe, se guarda normalmente
+        else:
+            super(User, self).save(*args, **kwargs)
+
+    # Metodo para obtener el rol del usuario
 
 class Persona(models.Model):
     # Variables
     nombre = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=255)
     telefono = models.CharField(max_length=12)
-    fecha_nacimiento = models.DateField()
-    foto = models.ImageField(upload_to='imagenes/foto_usuario', default='imagenes/foto_usuario/foto_perfil.png')
+    # fecha de nacimiento con el valor por defecto de la fecha actual
+    fecha_nacimiento = models.DateField(default=date.today)
+    foto = models.ImageField(upload_to='foto_usuario', default='foto_usuario/default.png')
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -68,9 +82,8 @@ class Contactos(models.Model):
     telefono = models.CharField(max_length=12)
     email = models.EmailField(default='example@gmail.com')
     nota = models.CharField(max_length=100, default='Sin nota', null=True)
-    # foto = models.ImageField(upload_to='imagenes/foto_contactos', default='imagenes/foto_contactos/foto_contacto.png')
+    foto = models.ImageField(upload_to='foto_contacto', default='foto_usuario/default.png')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
 
     def __str__(self):
         return self.nombre + ' ' + self.apellidos

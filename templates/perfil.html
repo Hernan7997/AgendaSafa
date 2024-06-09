@@ -3,12 +3,43 @@
 
 
 {% block content %}
-    
+
     <div class="container">
-        <!-- Hacer alerts de JS con sweetalert2-->
-        <div>
-            <p>etiqueta de prueba de perfil</p>
-            <img src="{% static 'imagenes/fondo-imagen-agenda.png' %}">
+        <div class="row">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9 col-xl-9">
+                    <div class="carta mt-5">
+                        <div class="card-header text-white text-center" style="background-color: #54456b;">
+                            <h3>Perfil</h3>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                {% if persona.foto.url %}
+                                    <img src="{{ persona.foto.url }}" alt="Foto de perfil" class="img-thumbnail"
+                                         style="width: 450px; height: 450px;">
+                                {% else %}
+                                    <p>No hay foto de perfil disponible</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <br>
+                                <span class="my-3">Nombre:</span>
+                                <p class="mb-3 ms-4">{{ persona.nombre }}</p>
+                                <span class="mb-3">Apellidos:</span>
+                                <p class="mb-3 ms-4">{{ persona.apellidos }}</p>
+                                <span class="mb-3">Telefono:</span>
+                                <p class="mb-3 ms-4">{{ persona.telefono }}</p>
+                                <span class="mb-3">Fecha de Nacimiento:</span>
+                                <p class="mb-3 ms-4">{{ persona.fecha_nacimiento|date:'Y-m-d' }}</p>
+                            </div>
+                            <div class="col-12 text-center">
+                                <a href="{% url 'editar_perfil' id=persona.id %}" class="boton btn btn-primary">
+                                    Editar perfil</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

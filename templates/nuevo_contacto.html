@@ -7,14 +7,21 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-9 col-xl-6">
-                <div class="card mt-5">
+                <div class="carta mt-5">
                     <div class="card-header text-white text-center" style="background-color: #54456b;">
                         <h3>Nuevo contacto</h3>
                     </div>
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
 
                         {% csrf_token %}
 
+                        <div class="my-3 text-center">
+                            {% if contacto.foto %}
+                                <img src="{{ contacto.foto.url }}" alt="Foto de contacto" class="img-thumbnail"
+                                     style="width: 300px; height: 300px;">
+                            {% endif %}
+                            <input type="file" name="foto" class="form-control" id="foto">
+                        </div>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" name="nombre" class="form-control" id="nombre"

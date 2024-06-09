@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-9 col-xl-6">
+                <div class="carta mt-5">
+                    <div class="card-header text-white text-center" style="background-color: #54456b;">
+                        <h3>Editar perfil</h3>
+                    </div>
+                    <form action="" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    {% if persona.foto %}
+                                        <img src="{{ persona.foto.url }}" alt="Foto de perfil" class="img-thumbnail"
+                                             style="width: 300px; height: 300px;">
+                                    {% endif %}
+                                    <input type="file" name="foto" class="form-control" id="foto">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="my-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" name="nombre" class="form-control" id="nombre"
+                                           value="{{ persona.nombre }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellidos" class="form-label">Apellidos</label>
+                                    <input type="text" name="apellidos" class="form-control" id="apellidos"
+                                           value="{{ persona.apellidos }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono" class="form-label">Telefono</label>
+                                    <input type="text" name="telefono" class="form-control" id="telefono"
+                                           value="{{ persona.telefono }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" name="fecha_nacimiento" class="form-control"
+                                           id="fecha_nacimiento"
+                                           value="{{ persona.fecha_nacimiento|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="boton btn btn-primary">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% include 'footer.html' %}

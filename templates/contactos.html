@@ -21,7 +21,10 @@
 
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-3 mx-5">
                     <div class="d-flex justify-content-center">
-                        <div class="card border-light" style="width: 18rem;">
+                        <div class="carta border-light" style="width: 18rem;">
+                            <div class="card-body">
+                                <img src="{{ c.foto.url }}" class="card-img-top" alt="Foto de contacto">
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ c.nombre }} {{ c.apellidos }}</h5>
                                 <p class="card-text">{{ c.nota }}</p>

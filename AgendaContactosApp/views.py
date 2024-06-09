@@ -13,10 +13,6 @@ def inicio(request):
     return render(request, 'inicio.html')
 
 
-def perfil(request):
-    return render(request, 'perfil.html')
-
-
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
 
@@ -45,13 +41,13 @@ def nuevo_contacto(request):
         nuevo.nota = request.POST.get('nota')
         nuevo.user = request.user
         nuevo.save()
-        return redirect('/AgendaContactos/contactos')
+        return redirect('contactos')
 
 
 def borrar_contacto(request, id):
     contacto = Contactos.objects.get(id=id)
     contacto.delete()
-    return redirect('/AgendaContactos/contactos')
+    return redirect('contactos')
 
 
 # Igual que crear un contacto solo que con la diferencia que solicitas el id del contacto a editar
@@ -65,8 +61,21 @@ def editar_contacto(request, id):
         contacto.telefono = request.POST.get('telefono')
         contacto.email = request.POST.get('email')
         contacto.nota = request.POST.get('nota')
+
+        # Guardar la foto si se proporciona
+        if 'foto' in request.FILES:
+            # Comprobar que el archivo es una imagen
+            foto = request.FILES['foto']
+            # Comprobar que el archivo es una imagen
+            if foto.content_type not in ['image/png', 'image/jpeg', 'image/jpg']:
+                return render(request, 'nuevo_contacto.html',
+                              {'contacto': contacto, 'error': 'El archivo debe ser una imagen PNG o JPEG'})
+            # Guardar la imagen si es válida
+            contacto.foto = foto
+        # No hace falta un else porque si no se cumple la condicion se mantendra la foto que ya tenia
+
         contacto.save()
-        return redirect('/AgendaContactos/contactos')
+        return redirect('contactos')
 
 
 def registro(request):
@@ -103,7 +112,7 @@ def registro(request):
             usuario.save()
 
             # Redirigir al logging
-            return redirect('/AgendaContactos/login')
+            return redirect('login')
 
 
 def loguear(request):
@@ -131,7 +140,45 @@ def loguear(request):
 
 def desloguear(request):
     logout(request)
-    return redirect('/AgendaContactos/login')
+    return redirect('login')
+
+
+@check_user_logged()
+def perfil(request):
+    user = request.user
+    persona = Persona.objects.get(user=user)
+
+    return render(request, 'perfil.html', {'persona': persona})
+
+
+def editar_perfil(request, id):
+    # Coger la persona que se va a editar
+    persona = Persona.objects.get(id=id)
+    if request.user.id != persona.user.id:
+        return redirect('error')
+
+    if request.method == 'POST':
+        persona.nombre = request.POST.get('nombre')
+        persona.apellidos = request.POST.get('apellidos')
+        persona.telefono = request.POST.get('telefono')
+        persona.fecha_nacimiento = request.POST.get('fecha_nacimiento')
+
+        # Guardar la foto si se proporciona
+        if 'foto' in request.FILES:
+            # Comprobar que el archivo es una imagen
+            foto = request.FILES['foto']
+            # Comprobar que el archivo es una imagen
+            if foto.content_type not in ['image/png', 'image/jpeg', 'image/jpg']:
+                return render(request, 'editar_perfil.html',
+                              {'persona': persona, 'error': 'El archivo debe ser una imagen PNG o JPEG'})
+            # Guardar la imagen si es válida
+            persona.foto = foto
+        # No hace falta un else porque si no se cumple la condicion se mantendra la foto que ya tenia
+
+        persona.save()
+        return redirect('perfil')
+    else:
+        return render(request, 'editar_perfil.html', {'persona': persona})
 
 
 @check_user_role('ADMIN')
@@ -205,7 +252,7 @@ def editar_usuario(request, id):
             except ValidationError as e:
                 errores.append(str(e))
             else:
-                return redirect('/AgendaContactos/admin_usuarios')
+                return redirect('admin_usuarios')
 
     return render(request, 'admin_nuevo_usuario.html', {'usuario': usuario, 'roles': roles, 'errores': errores})
 
@@ -214,7 +261,7 @@ def editar_usuario(request, id):
 def borrar_usuario(request, id):
     usuario = User.objects.get(id=id)
     usuario.delete()
-    return redirect('/AgendaContactos/admin_usuarios')
+    return redirect('admin_usuarios')
 
 
 @check_user_role('ADMIN')

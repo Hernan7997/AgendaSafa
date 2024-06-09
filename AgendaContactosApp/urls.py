@@ -17,10 +17,8 @@ Including another URLconf
 from django.urls import path
 from .views import *
 
-
 urlpatterns = [
     path('inicio/', inicio, name='inicio'),
-    path('perfil/', perfil, name='perfil'),
     path('sobre_nosotros/', sobre_nosotros, name='sobre_nosotros'),
     path('contactos/', lista_contactos, name='contactos'),
     path('contactos/new/', nuevo_contacto, name='nuevo_contacto'),
@@ -28,6 +26,8 @@ urlpatterns = [
     path('contactos/borrar/<int:id>/', borrar_contacto, name='borrar_contacto'),
     path('login/', loguear, name='login'),
     path('logout/', desloguear, name='logout'),
+    path('perfil/edit/<int:id>/', editar_perfil, name='editar_perfil'),
+    path('perfil/', perfil, name='perfil'),
     path('registro/', registro, name='registro'),
     path('admin_usuarios/', lista_usuarios, name='lista_usuarios'),
     path('admin_nuevo_usuario/', nuevo_usuario, name='nuevo_usuario'),
@@ -35,6 +35,5 @@ urlpatterns = [
     path('admin_borrar_usuario/<int:id>/', borrar_usuario, name='borrar_usuario'),
     path('admin_buscar_usuario/', buscar_usuario, name='buscar_usuario'),
     path('error/', error, name='error'),
-
 
 ]

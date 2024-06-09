@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('apellidos', models.CharField(max_length=255)),
                 ('telefono', models.CharField(max_length=12)),
                 ('fecha_nacimiento', models.DateField()),
-                ('foto', models.ImageField(default='imagenes/foto_usuario/foto_perfil.png', upload_to='imagenes/foto_usuario')),
+                ('foto', models.ImageField(default='imagenes-web/foto_usuario/foto_perfil.png', upload_to='imagenes-web/foto_usuario')),
             ],
         ),
         migrations.CreateModel(

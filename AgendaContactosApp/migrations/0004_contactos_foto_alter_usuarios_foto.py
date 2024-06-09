@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contactos',
             name='foto',
-            field=models.ImageField(default='imagenes/foto_contactos/foto_contacto.png', upload_to='imagenes/foto_contactos'),
+            field=models.ImageField(default='imagenes-web/foto_contactos/foto_contacto.png', upload_to='imagenes-web/foto_contactos'),
         ),
         migrations.AlterField(
             model_name='usuarios',
             name='foto',
-            field=models.ImageField(default='imagenes/foto_usuario/foto_perfil.png', upload_to='imagenes/foto_usuario'),
+            field=models.ImageField(default='imagenes-web/foto_usuario/foto_perfil.png', upload_to='imagenes-web/foto_usuario'),
         ),
     ]
