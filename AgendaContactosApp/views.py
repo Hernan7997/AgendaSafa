@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from .decorator import check_user_logged, check_user_role
@@ -107,7 +108,9 @@ def registro(request):
             errors.append("Ya existe un usuario con ese mismo email")
 
         if len(errors) != 0:
-            return render(request, 'registro.html', {"errores": errors, "username": username, "email": email})
+            # Devolver errores en formato JSON para que JavaScript los muestre
+            return render(request, 'registro.html', {"errores": errors})
+
         else:
             # Crear usuario
             usuario = User.objects.create(username=username, password=make_password(password), email=email)
@@ -255,7 +258,7 @@ def editar_usuario(request, id):
             except ValidationError as e:
                 errores.append(str(e))
             else:
-                return redirect('admin_usuarios')
+                return redirect('lista_usuarios')
 
     return render(request, 'admin_nuevo_usuario.html', {'usuario': usuario, 'roles': roles, 'errores': errores})
 
@@ -264,7 +267,7 @@ def editar_usuario(request, id):
 def borrar_usuario(request, id):
     usuario = User.objects.get(id=id)
     usuario.delete()
-    return redirect('admin_usuarios')
+    return redirect('lista_usuarios')
 
 
 @check_user_role('ADMIN')

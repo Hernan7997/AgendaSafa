@@ -3,7 +3,7 @@
 
 
 {% block content %}
-    
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-9 col-xl-6">
@@ -32,7 +32,7 @@
                             </a>
                         </form>
                         <!--Este es un error que solo se muestra si ocurre-->
-                        <p>{{ error }}</p>
+                        <div id="error-message" style="display: none;">{{ error }}</div>
                     </div>
                 </div>
             </div>

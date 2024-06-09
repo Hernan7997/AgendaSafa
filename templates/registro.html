@@ -35,12 +35,12 @@
                             <label for="repeatPassword" class="form-label">Repetir contraseña</label>
                             <input type="password" class="form-control" name="repeatPassword" id="repeatPassword">
                         </div>
-                        <button type="submit" class="boton btn btn-primary">Enviar</button>
+                        <button type="submit" class="boton confirmar btn btn-primary">Enviar</button>
                     </form>
 
                     {% for e in errores %}
 
-                        <p>{{ e }}</p>
+                        <p style="color: red">{{ e }}.</p>
                     {% endfor %}
                 </div>
             </div>
