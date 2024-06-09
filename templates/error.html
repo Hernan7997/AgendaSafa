@@ -3,11 +3,27 @@
 
 
 {% block content %}
-    
-    <div class="container">
-        <p> Pagina no disponible</p>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="carta text-center align-items-center">
+                    <div class="card-body">
+                        <h3>¡Te atrapé!</h3>
+                    </div>
+                    <div class="card-body">
+                        <img src="{% get_media_prefix %}gif/mapache-pedro.gif" class="card-img-top" alt="Gif"
+                         style="width: 450px; height: 450px;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Pagina no disponible</h5>
+                        <p class="card-text">Estas intentando entrar a una zona que no tienes acceso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+
 {% endblock %}
 
 {% include 'footer.html' %}

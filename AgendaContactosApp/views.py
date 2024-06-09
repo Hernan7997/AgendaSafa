@@ -44,6 +44,7 @@ def nuevo_contacto(request):
         return redirect('contactos')
 
 
+@check_user_logged()
 def borrar_contacto(request, id):
     contacto = Contactos.objects.get(id=id)
     contacto.delete()
@@ -51,6 +52,7 @@ def borrar_contacto(request, id):
 
 
 # Igual que crear un contacto solo que con la diferencia que solicitas el id del contacto a editar
+@check_user_logged()
 def editar_contacto(request, id):
     contacto = Contactos.objects.get(id=id)
     if request.method == 'GET':
@@ -151,6 +153,7 @@ def perfil(request):
     return render(request, 'perfil.html', {'persona': persona})
 
 
+@check_user_logged()
 def editar_perfil(request, id):
     # Coger la persona que se va a editar
     persona = Persona.objects.get(id=id)
