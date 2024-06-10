@@ -221,6 +221,7 @@ def nuevo_usuario(request):
             # Crear y guardar el nuevo usuario si no hay errores
             nuevo_usuario = User(username=username, email=email, rol=rol)
             nuevo_usuario.save()
+            return redirect('lista_usuarios')
 
     return render(request, 'admin_nuevo_usuario.html', {'roles': roles, 'errores': errores})
 
