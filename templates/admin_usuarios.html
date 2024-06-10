@@ -12,7 +12,9 @@
             </a>
             <form action="{% url 'buscar_usuario' %}" method="get">
                 <div class="input-group">
-                    <input type="text" name="username" class="form-control-md m-1" placeholder="Buscar usuario">
+                    {# custom-placeholder es un estilo de cssdel header para que "buscar usuario" salga en negrita y se vea mejor #}
+                    <input type="text" name="username" id="buscar" class="form-control-md m-1 custom-placeholder"
+                           placeholder="Buscar usuario">
                     <div class="input-group-append">
                         <button class="boton btn btn-primary m-1" type="submit">Buscar</button>
                     </div>
@@ -20,7 +22,7 @@
             </form>
 
         </div>
-        <div class="table-responsive">
+        <div class="table-responsive custom-gradient-bg">
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead">
                 <tr class="text-center">
@@ -43,7 +45,8 @@
                         <td>
                             {# javascript:void(0) permite que el boton no haga nada, a diferencia de # que recarga la pagina #}
                             {# data-url nos permite cargar la url al archivo js ya que {% solo funciona en plantillas html %}#}
-                            <a href="javascript:void(0)" class="btn eliminar-usuario" data-url="{% url 'borrar_usuario' id=u.id %}">
+                            <a href="javascript:void(0)" class="btn eliminar-usuario"
+                               data-url="{% url 'borrar_usuario' id=u.id %}">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
                         </td>

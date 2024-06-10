@@ -21,18 +21,20 @@
 
                 <div class="col-6 col-sm-6 col-md-4 col-lg-3 p-3 mx-5">
                     <div class="d-flex justify-content-center">
-                        <div class="carta border-light" style="width: 18rem;">
+                        <div class="carta border-light custom-gradient-bg" style="width: 18rem;">
                             <div class="card-body">
                                 <img src="{{ c.foto.url }}" class="card-img-top" alt="Foto de contacto">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ c.nombre }} {{ c.apellidos }}</h5>
-                                <p class="card-text">{{ c.nota }}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{ c.telefono }}</li>
-                                <li class="list-group-item">{{ c.email }}</li>
+                                <li class="list-group-item custom-gradient-bg">{{ c.telefono }}</li>
+                                <li class="list-group-item custom-gradient-bg">{{ c.email }}</li>
                             </ul>
+                            <div class="card-body">
+                                <p class="card-text">{{ c.nota }}</p>
+                            </div>
                             <div class="card-body d-flex justify-content-between">
                                 <a href="{% url 'editar_contacto' id=c.id %}"
                                    class="boton btn btn-primary m-1">Editar

@@ -23,10 +23,24 @@
             min-height: 100vh;
             position: relative;
             margin-bottom: 10rem;
+            background-image: url("{% static 'imagenes/imagen-fondo-web.jpeg' %}");
+            background-size: cover;
+        }
+
+        .custom-gradient-bg {
+            background: linear-gradient(to right, #F0E0A3, #EED09D);
+        }
+
+        #buscar {
+            background: linear-gradient(to right, #F0E0A3, #EED09D);
+        }
+
+        .custom-placeholder::placeholder {
+            font-weight: bold;
         }
 
         .navbar {
-            background-color: #F0E0A3;
+            background: linear-gradient(to right, #F0E0A3, #EED09D);
             margin-bottom: 2%;
             display: flex;
             border-bottom: solid 2px;
@@ -40,7 +54,7 @@
         }
 
         .carta {
-            box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3), -5px -5px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 5px 5px 8px rgba(0, 0, 0, 1), -5px -5px 8px rgba(0, 0, 0, 1);
             padding: 1em;
         }
 
@@ -49,7 +63,7 @@
         }
 
         .imagen {
-            box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3), -8px -8px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 8px 8px 10px rgba(0, 0, 0, 1), -8px -8px 10px rgba(0, 0, 0, 1);
         }
 
         .thead {
@@ -108,11 +122,11 @@
                         <li class="nav-item" id="opciones">
                             {% if user.rol == 'PERSONA' %}
                                 <a class="nav-link text-black" href="{% url 'contactos' %}">
-                                    Contactos
+                                    <button class="boton btn btn-primary m-3">Contactos</button>
                                 </a>
                             {% elif user.rol == 'ADMIN' %}
                                 <a class="nav-link text-black" href="{% url 'lista_usuarios' %}">
-                                    Usuarios
+                                    <button class="boton btn btn-primary m-3">Usuarios</button>
                                 </a>
                             {% endif %}
                         </li>
@@ -120,13 +134,19 @@
                         {#                     Containers de perfil y login#}
                         <li class="nav-item">
                             {% if not user.rol == 'ADMIN' %}
-                                <a class="nav-link text-black" href="{% url 'perfil' %}">Mi perfil</a>
+                                <a class="nav-link text-black" href="{% url 'perfil' %}">
+                                    <button class="boton btn btn-primary m-3">Mi perfil</button>
+                                </a>
                             {% endif %}
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black" href="{% url 'logout' %}">Log out</a>
+                            <a class="nav-link text-black" href="{% url 'logout' %}">
+                                <button class="boton btn btn-primary m-3">Log out</button>
+                            </a>
                             {% else %}
-                            <a class="nav-link text-black" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link text-black" href="{% url 'login' %}">
+                                <button class="boton btn btn-primary m-3">Login</button>
+                            </a>
                         </li>
                     {% endif %}
                 </ul>
